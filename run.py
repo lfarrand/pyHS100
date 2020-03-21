@@ -40,7 +40,7 @@ influxUser = args.influxUser
 influxPass = args.influxPass
 
 def gatherStatsAndPost(host, ip, timeNow):
-    # print('Getting usage for {} ({})'.format(host, ip))
+    print('Getting usage for {} ({})'.format(host, ip))
     today = datetime.today()
 
     plug = SmartPlug(ip)
@@ -131,7 +131,7 @@ while True:
             print("{}: {} - InfluxDB error: {}".format(timeNow, powerPlugAddress[0], str(e)))
         except SmartDeviceException as e:
             print("{}: {} - SmartDeviceException: {}".format(timeNow, powerPlugAddress[0], str(e)))
-        except:
-            print("{}: {} - Unexpected error: ".format(timeNow, powerPlugAddress[0], sys.exc_info()[0]))
+        except Exception as e:
+            print("{}: {} - Unexpected error: {}".format(timeNow, powerPlugAddress[0], str(e)))
     # print('Finished checking power usage')
     time.sleep(10)
