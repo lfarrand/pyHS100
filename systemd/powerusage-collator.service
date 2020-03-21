@@ -1,0 +1,13 @@
+# /etc/systemd/system/powerusage-collator.service
+
+[Unit]
+Description=Runs power usage stats collator for HS110 plugs
+Wants=powerusage-collator.timer
+
+[Service]
+ExecStart=/usr/bin/python3 /git/pyHS100/run.py -is containerhost02 -idb metrics -iusr metricsuser -ipass dWeSGaEL5tK59TNt
+WorkingDirectory=/git/pyHS100
+Slice=powerusage-collator.slice
+
+[Install]
+WantedBy=multi-user.target

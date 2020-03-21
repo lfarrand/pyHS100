@@ -1,0 +1,16 @@
+systemctl stop powerusage-collator
+systemctl daemon-reload
+systemctl enable powerusage-collator.timer
+systemctl start powerusage-collator
+
+Handy commands
+
+systemctl start powerusage-collator
+systemctl stop powerusage-collator
+systemctl status powerusage-collator
+
+systemctl list-timers  # view the status of the timers
+journalctl  # view the full systemd logs in less
+journalctl -u powerusage-collator  # view the logs for a specific service
+journalctl -f  # tail the logs
+journalctl -f -u powerusage-collator  # tail the logs for a specific service

@@ -1,0 +1,14 @@
+# /etc/systemd/system/powerusage-collator.timer
+
+[Unit]
+Description=Run powerusage-collator every 10 seconds
+Requires=powerusage-collator.service
+
+[Timer]
+Unit=powerusage-collator.service
+OnUnitInactiveSec=10s
+# RandomizedDelaySec=15s
+AccuracySec=1s
+
+[Install]
+WantedBy=timers.target

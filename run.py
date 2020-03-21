@@ -40,7 +40,7 @@ influxUser = args.influxUser
 influxPass = args.influxPass
 
 def gatherStatsAndPost(host, ip, timeNow):
-    print('Getting usage for {} ({})'.format(host, ip))
+    # print('Getting usage for {} ({})'.format(host, ip))
     today = datetime.today()
 
     plug = SmartPlug(ip)
@@ -121,17 +121,15 @@ def gatherStatsAndPost(host, ip, timeNow):
     del client
 
 
-while True:
-    timeNow = datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
-    # print("Checking power usage at {}".format(timeNow))
-    for powerPlugAddress in powerPlugAddresses:
-        try:
-            gatherStatsAndPost(powerPlugAddress[0], powerPlugAddress[1], timeNow)
-        except InfluxDBClientError as e:
-            print("{}: {} - InfluxDB error: {}".format(timeNow, powerPlugAddress[0], str(e)))
-        except SmartDeviceException as e:
-            print("{}: {} - SmartDeviceException: {}".format(timeNow, powerPlugAddress[0], str(e)))
-        except Exception as e:
-            print("{}: {} - Unexpected error: {}".format(timeNow, powerPlugAddress[0], str(e)))
-    # print('Finished checking power usage')
-    time.sleep(10)
+timeNow = datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
+# print("Checking power usage at {}".format(timeNow))
+for powerPlugAddress in powerPlugAddresses:
+    try:
+        gatherStatsAndPost(powerPlugAddress[0], powerPlugAddress[1], timeNow)
+    except InfluxDBClientError as e:
+        print("{}: {} - InfluxDB error: {}".format(timeNow, powerPlugAddress[0], str(e)))
+    except SmartDeviceException as e:
+        print("{}: {} - SmartDeviceException: {}".format(timeNow, powerPlugAddress[0], str(e)))
+    except Exception as e:
+        print("{}: {} - Unexpected error: {}".format(timeNow, powerPlugAddress[0], str(e)))
+# print('Finished checking power usage')
